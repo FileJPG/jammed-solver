@@ -1,17 +1,24 @@
+/*!
+* \file
+* \brief Данный файл является заголовочным файлом для класса Error
+*/
+
 #pragma once
 
-#include <vector>
 #include <string>
 
-using std::vector;
+#include "Structure.h"
+
 using std::string;
 
-// Тип ошибки
+/*!
+ * \brief Тип ошибки
+ */
 enum ErrorType
 {
-	none, // Нет ошибки
 	cantOpenReadFile, // Входной файл нельзя открыть/прочитать
 	cantCreateFile, // Выходной файл нельзя создать
+	incorrectFieldForm, // Некорректная форма расстановки
 	incorrectEmptyCellsCount, // Некорректное количество пустых клеток в расстановке
 	incorrectSymbolsInField, // Некорректный символ в расстановке
 	incorrectFieldSize,	// Некорректный размер расстановки
@@ -19,24 +26,26 @@ enum ErrorType
 	incorrectFieldsCount // Некорректное количество расстановок
 };
 
-// Ошибка
+/*!
+ * \brief Ошибка
+ */
 class Error
 {
-	// Тип ошибки
-	ErrorType type;
+public:
+	ErrorType type; // Тип ошибки
 
-	// Путь к входному файлу
-	string filePath;
+	string str; // Строка
 	
-	// Рассматриваемая расстановка является начальной
-	bool isInitialField;
+	bool isInitialField; // Рассматриваемая расстановка является начальной
 
-	// Счетчик чего-либо
-	int count;
+	int count; // Счетчик
 	
-	// Неправильные символы
-	vector<char> symbols;
-	
-	// Размеры поля
-	int fieldSizeX, fieldSizeY;
+	Size fieldSize; // Размеры поля
+
+	/*!
+	* \brief Конвертировать ошибку в строковый формат
+	* \param [in] error - ошибка
+	* \return Сообщение об ошибке в строковом формате
+	*/
+	static string convert(const Error& error);
 };

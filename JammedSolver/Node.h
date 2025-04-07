@@ -1,18 +1,31 @@
+/*!
+* \file
+* \brief Данный файл является заголовочным файлом для класса Node
+*/
+
 #pragma once
 
 #include <vector>
 
 using std::vector;
 
-// Узел
+/*!
+ * \brief Узел
+ */
 template<class T> class Node
 {
-	// Значение узла
-	T data;
+	T data; // Значение узла
 
-	// Узел-родитель (nullptr, если узел является корнем)
-	Node<T>* parent;
+	Node<T>* parent; // Родитель (nullptr, если узел является корнем)
 
-	// Узлы-потомки
-	vector<Node<T>*> children;
+	vector<Node<T>*> children; // Потомки
+
+public:
+
+	/*!
+	* \brief Получить путь от корня до узла
+	* \param [in] currentNode - текущий узел, до которого нужно получить путь
+	* \return Узлы последовательно от корня до текущего. Пустой вектор, если граф не является деревом
+	*/
+	vector<Node<T>*> getWayFromRoot(const Node<T>* currentNode) const;
 };
