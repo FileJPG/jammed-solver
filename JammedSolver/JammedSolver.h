@@ -7,7 +7,6 @@
 
 #include <vector>
 #include <string>
-
 #include "GameFieldData.h"
 #include "Error.h"
 

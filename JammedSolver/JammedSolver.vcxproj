@@ -131,8 +131,6 @@
     <ClCompile Include="GameFieldData.cpp" />
     <ClCompile Include="JammedSolver.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Node.cpp" />
-    <ClCompile Include="PriorityQueue.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Error.h" />

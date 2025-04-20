@@ -6,7 +6,6 @@
 #pragma once
 
 #include <string>
-
 #include "Structure.h"
 
 using std::string;
@@ -44,8 +43,7 @@ public:
 
 	/*!
 	* \brief Конвертировать ошибку в строковый формат
-	* \param [in] error - ошибка
 	* \return Сообщение об ошибке в строковом формате
 	*/
-	static string convert(const Error& error);
+	string convert() const;
 };

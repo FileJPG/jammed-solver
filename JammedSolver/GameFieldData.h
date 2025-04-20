@@ -6,13 +6,14 @@
 #pragma once
 
 #include <vector>
-
 #include "Structure.h"
 #include "Error.h"
 
 using std::vector;
 
 using Field = vector<vector<char>>; // Псевдоним для игрового поля
+
+const Field DEFAULT_FIELD = { {'1', '2', '3', '4'}, { '5', '6', '7', '8' }, { '9', 'A', 'B', 'C' }, { 'D', 'E', 'F', '#' } }; // Поле по умолчанию
 
 /*!
  * \brief Игровое поле с дополнительными данными
@@ -28,11 +29,59 @@ class GameFieldData
 public:
 
     /*!
+    * \brief Конструктор с параметрами
+    */
+    GameFieldData(const Field& field = DEFAULT_FIELD, const int& numberOfMoves = 0, const int& manhattanDistance = -1);
+
+    /*!
+    * \brief Оператор ==
+    */
+    bool operator==(const GameFieldData& other);
+
+    /*!
+    * \brief Геттер для поля field
+    */
+    Field getField() const;
+
+    /*!
+    * \brief Геттер для размеров расстановки
+    */
+    Size getSize() const;
+
+    /*!
+    * \brief Геттер для поля numberOfMoves
+    */
+    int getNumberOfMoves() const;
+
+    /*!
+    * \brief Геттер для поля manhattanDistance
+    */
+    int getManhattanDistance() const;
+
+    /*!
+    * \brief Сеттер для количества сделанных ходов
+    */
+    void setNumberOfMoves(const int& value);
+
+    /*!
+    * \brief Сеттер для количества сделанных ходов
+    */
+    void setManhattanDistance(const int& value);
+
+    /*!
     * \brief Проверить расстановку фишек на валидность
     * \param [in] field - расстановка
     * \return Ошибки в расстановке
     */
     static vector<Error> validate(const Field& field);
+
+    /*!
+    * \brief Доказать решаемость игры
+    * \param [in] startField - начальная расстановка
+    * \param [in] goalField - целевая расстановка
+    * \return Целевая расстановка является достижимой из начальной
+    */
+    static bool isSolvable(const GameFieldData& startField, const GameFieldData& goalField);
 
     /*!
     * \brief Сравнить расстановки фишек
@@ -49,12 +98,6 @@ public:
     * \return Расстановки имеют одинаковый набор фишек
     */
     static bool compareSets(const GameFieldData& firstField, const GameFieldData& secondField);
-
-    /*!
-    * \brief Получить размер расстановки
-    * \return Размер расстановки по горизонтали и вертикали
-    */
-    Size getSize() const;
 
     /*!
     * \brief Создать возможные ходы для расстановки
@@ -83,4 +126,10 @@ private:
     * \return Позиции нужной клетки
     */
     vector<Position> getPos(const char& value) const;
+
+    /*!
+    * \brief Посчитать количество инверсий в расстановке
+    * \return Количество инверсий в расстановке
+    */
+    int countInversions() const;
 };
