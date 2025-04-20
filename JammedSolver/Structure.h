@@ -30,6 +30,24 @@ struct Position
 */
 struct Size
 {
-    int lenght; // Длина
+    int length; // Длина
     int height; // Высота
+
+    /*!
+    * \brief Оператор !=
+    */
+    bool operator!=(const Size& other) { return length != other.length || height != other.height; }
+
+    /*!
+    * \brief Получить площадь
+    * \return Площадь для данных размеров
+    */
+    int square() { return length * height; }
+
+    /*!
+    * \brief Сравнить размеры
+    * \param [in] other - другой размер
+    * \return Размеры одинаковые
+    */
+    bool compare(const Size& other) { return length == other.length && height == other.height; }
 };
