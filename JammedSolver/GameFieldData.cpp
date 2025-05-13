@@ -121,42 +121,45 @@ int GameFieldData::getManhattanDistance(const GameFieldData& goalField) const
 	int fieldSizeX = getSize().length; // Длина поля
 	int fieldSizeY = getSize().height; // Высота поля
 
-	int manhattanDistance = 0; // ...Считать, что манхэттенское расстояние не найдено
-	vector<vector<bool>> map(fieldSizeY, vector<bool>(fieldSizeX, false)); // ...Считать, что ни одна фишка текущей расстановки не привязана к позиции в целевой расстановке
+	int totalDistance = 0; // ...Считать, что манхэттенское расстояние не найдено
+	vector<vector<bool>> occupied(fieldSizeY, vector<bool>(fieldSizeX, false)); // ...Считать, что ни одна фишка текущей расстановки не привязана к позиции в целевой расстановке
 
-	// Для каждой фишки текущей расстановки
-	for (int i = 0; i < fieldSizeY; i++) {
-		for (int j = 0; j < fieldSizeX; j++) {
-			if (field[i][j] == '#') continue;
+	for (int y1 = 0; y1 < fieldSizeY; y1++) { // Для каждой фишки текущей расстановки
+		for (int x1 = 0; x1 < fieldSizeX; x1++) {
+			if (field[y1][x1] == '#') continue;
 
-			Position lastPos = { -1, -1 }; // Предыдущая привязанная позиция
-			int minManhattanDistance = 10e+9; // Предыдущее манхэттенское расстояние
-			int currentManhattanDistance = 0; // Текущее расстояние от фишки до целевой позиции
+			Position bestPos; // Привязанная позиция
+			int minDistance = INT_MAX; // Минимальное манхэттенское расстояние
 
 			// Найти ближайшую незанятую целевую позицию для текущей фишки...
-			for (int k = 0; k < fieldSizeY; k++) { // Для каждой незанятой целевой позиции расстановки для текущей фишки
-				for (int l = 0; l < fieldSizeX; l++) {
-					if (map[k][l] == false && field[i][j] == goalField.field[k][l]) {
+			for (int y2 = 0; y2 < fieldSizeY; y2++) { // Для каждой незанятой целевой позиции расстановки для текущей фишки
+				for (int x2 = 0; x2 < fieldSizeX; x2++) {
+					if (!occupied[y2][x2] && field[y1][x1] == goalField.field[y2][x2]) {
 						// Посчитать манхэттенское расстояние от рассматриваемой фишки до текущей позиции
-						int currentManhattanDistance = fabs(i - k) + fabs(j - l);
+						int currentDistance = abs(y1 - y2) + abs(x1 - x2); // Текущее расстояние от фишки до целевой позиции
 
-						// Для рассматриваемой фишки отвязать предыдущую и привязать текущую позицию, если расстояние от фишки до текущей позиции минимальное
-						if (currentManhattanDistance < minManhattanDistance) {
-							minManhattanDistance = currentManhattanDistance; // Изменить минимальное расстояние
+						// Для рассматриваемой фишки привязать текущую позицию, если расстояние от фишки до текущей позиции минимальное
+						if (currentDistance < minDistance) {
+							// Изменить минимальное расстояние
+							minDistance = currentDistance;
 
-							if (lastPos.x != -1) map[lastPos.y][lastPos.x] = false; // Отвязать старую позицию от фишки
-
-							map[k][l] = true; // Привязать новую позицию к фишке
+							// Привязать новую позицию к фишке
+							bestPos = {x2, y2};
 						}
 					}
 				}
 			}
-			// Посчитать манхэттенское расстояние от текущей фишки до найденной целевой позиции и прибавить его к результату
-			manhattanDistance += minManhattanDistance;
+			if (minDistance != INT_MAX) {
+				// Посчитать манхэттенское расстояние от текущей фишки до найденной целевой позиции и прибавить его к результату
+				totalDistance += minDistance;
+
+				// Привязать позицию к фишке
+				occupied[bestPos.y][bestPos.x] = true;
+			}
 		}
 	}
 	// Вернуть сумму манхэттенских расстояний от всех фишек текущей расстановки до их целевых позиций
-	return manhattanDistance;
+	return totalDistance;
 }
 
 bool GameFieldData::swap(const Direction& direction)
@@ -192,10 +195,10 @@ vector<Position> GameFieldData::getPos(const char& value) const
 	Size fieldSize = getSize(); // Размеры поля
 	vector<Position> positions; // ...Считать, что результирующий вектор пустой
 
-	for (int i = 0; i < fieldSize.height; i++) // Для каждой строки расстановки
-		for (int j = 0; j < fieldSize.length; j++) // Для каждой клетки текущей строки
+	for (int y = 0; y < fieldSize.height; y++) // Для каждой строки расстановки
+		for (int x = 0; x < fieldSize.length; x++) // Для каждой клетки текущей строки
 			// Добавить позицию текущей клетки в результирующий вектор, если ее значение совпадает с заданным
-			if (field[i][j] == value) positions.push_back({ j, i });
+			if (field[y][x] == value) positions.push_back({ x, y });
 
 	// Вернуть результирующий вектор
 	return positions;
