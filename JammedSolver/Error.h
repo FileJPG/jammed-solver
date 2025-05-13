@@ -42,6 +42,17 @@ public:
 	Size fieldSize; // Размеры поля
 
 	/*!
+	* \brief Конструктор с аргументами
+	*/
+	Error(ErrorType type = cantOpenReadFile, string str = "", bool isInitialField = true, int count = 0, Size fieldSize = { 1, 1 }) 
+		: type(type), str(str), isInitialField(isInitialField), count(count), fieldSize(fieldSize) {}
+
+	/*!
+	* \brief Оператор ==
+	*/
+	bool operator==(const Error& other) const;
+
+	/*!
 	* \brief Конвертировать ошибку в строковый формат
 	* \return Сообщение об ошибке в строковом формате
 	*/

@@ -27,6 +27,11 @@ public:
 	const vector<T*>& getItems() const { return items; }
 
 	/*!
+	* \brief Геттер для поля priorities
+	*/
+	const vector<int>& getPriorities() const { return priorities; }
+
+	/*!
 	* \brief Проверить, является ли очередь пустой
 	* \return Очередь является пустой
 	*/

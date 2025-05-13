@@ -13,7 +13,7 @@ using std::vector;
 
 using Field = vector<vector<char>>; // Псевдоним для игрового поля
 
-const Field DEFAULT_FIELD = { {'1', '2', '3', '4'}, { '5', '6', '7', '8' }, { '9', 'A', 'B', 'C' }, { 'D', 'E', 'F', '#' } }; // Поле по умолчанию
+const Field DEFAULT_FIELD = { {'#'}}; // Поле по умолчанию
 
 /*!
  * \brief Игровое поле с дополнительными данными
@@ -105,7 +105,8 @@ public:
     */
     vector<GameFieldData> getMoves() const;
 
-    /*! Вычислить манхэттенское расстояние до расстановки фишек
+    /*!
+    * \brief Вычислить манхэттенское расстояние до расстановки фишек
     * \param [in] goalField - целевая расстановка
     * \return Манхэттенское расстояние для всех фишек
     */
@@ -117,8 +118,6 @@ public:
     * \return Перемещение успешно
     */
     bool swap(const Direction& direction);
-
-private:
 
     /*!
     * \brief Получить позиции клетки в расстановке

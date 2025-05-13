@@ -7,6 +7,11 @@
 #include "PriorityQueue.h"
 #include "Node.h"
 
+vector<vector<string>> parseText(const vector<string>& text, const string& separator)
+{
+	return {};
+}
+
 vector<GameFieldData> solveJammed(const GameFieldData& startField, const GameFieldData& goalField)
 {
 	// Вернуть отсутствие решения, если #у игры нет решения#
