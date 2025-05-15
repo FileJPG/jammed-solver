@@ -13,13 +13,15 @@ using std::vector;
 
 using Field = vector<vector<char>>; // Псевдоним для игрового поля
 
-const Field DEFAULT_FIELD = { {'#'}}; // Поле по умолчанию
+const Field DEFAULT_FIELD = { {'#'} }; // Поле по умолчанию
 
 /*!
  * \brief Игровое поле с дополнительными данными
  */
 class GameFieldData
 {
+    friend vector<GameFieldData> solveJammed(const GameFieldData& startField, const GameFieldData& goalField);
+
     Field field; // Игровое поле
 
     int numberOfMoves; // Количество сделанных ходов
@@ -37,6 +39,11 @@ public:
     * \brief Оператор ==
     */
     bool operator==(const GameFieldData& other);
+
+    /*!
+    * \brief Сеттер для поля field
+    */
+    bool setField(Field newField);
 
     /*!
     * \brief Геттер для поля field
@@ -98,6 +105,13 @@ public:
     * \return Расстановки имеют одинаковый набор фишек
     */
     static bool compareSets(const GameFieldData& firstField, const GameFieldData& secondField);
+
+    /*!
+    * \brief Преобразовать формат расстановки
+    * \param [in] rawField - расстановка в формате vector<string>
+    * \return Расстановка в формате Field
+    */
+    static Field convert(const vector<string>& rawField);
 
     /*!
     * \brief Создать возможные ходы для расстановки
