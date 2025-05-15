@@ -30,7 +30,7 @@ public:
 	/*!
 	* \brief Геттер для поля data
 	*/
-	T getData() const { return data; }
+	const T& getData() const { return data; }
 
 	/*!
 	* \brief Получить путь от корня до узла
@@ -40,7 +40,8 @@ public:
 	vector<Node<T>*> getWayFromRoot(Node<T>* currentNode) const
 	{
 		// Выйти из функции, если входные данные не валидные
-		if (currentNode == nullptr) return {};
+		if (currentNode == nullptr) 
+			return {};
 
 		vector<Node<T>*> way; // ...Создать результирующий вектор для записи в него узлов из рекурсивной функции
 		
