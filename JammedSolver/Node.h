@@ -1,6 +1,6 @@
 /*!
 * \file
-* \brief Данный файл является заголовочным файлом для класса Node
+* \brief Данный файл содержит в себе реализацию функций класса Node
 */
 
 #pragma once
@@ -14,11 +14,11 @@ using std::vector;
  */
 template<class T> class Node
 {
-	T data; // Значение узла
+	T data; //!< Значение узла
 
-	Node<T>* parent; // Родитель (nullptr, если узел является корнем)
+	Node<T>* parent; //!< Родитель (nullptr, если узел является корнем)
 
-	vector<Node<T>*> children; // Потомки
+	vector<Node<T>*> children; //!< Потомки
 
 public:
 

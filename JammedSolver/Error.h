@@ -15,14 +15,14 @@ using std::string;
  */
 enum ErrorType
 {
-	cantOpenReadFile, // Входной файл нельзя открыть/прочитать
-	cantCreateFile, // Выходной файл нельзя создать
-	incorrectFieldForm, // Некорректная форма расстановки
-	incorrectEmptyCellsCount, // Некорректное количество пустых клеток в расстановке
-	incorrectSymbolsInField, // Некорректный символ в расстановке
-	incorrectFieldSize,	// Некорректный размер расстановки
-	differentSymbolsSets, // Разные фишки в начальной и целевой расстановках
-	incorrectFieldsCount // Некорректное количество расстановок
+	cantOpenReadFile, //!< Входной файл нельзя открыть/прочитать
+	cantCreateFile, //!< Выходной файл нельзя создать
+	incorrectFieldForm, //!< Некорректная форма расстановки
+	incorrectEmptyCellsCount, //!< Некорректное количество пустых клеток в расстановке
+	incorrectSymbolsInField, //!< Некорректный символ в расстановке
+	incorrectFieldSize,	//!< Некорректный размер расстановки
+	differentSymbolsSets, //!< Разные фишки в начальной и целевой расстановках
+	incorrectFieldsCount //!< Некорректное количество расстановок
 };
 
 /*!
@@ -31,15 +31,15 @@ enum ErrorType
 class Error
 {
 public:
-	ErrorType type; // Тип ошибки
+	ErrorType type; //!< Тип ошибки
 
-	string str; // Строка
+	string str; //!< Строка
 	
-	bool isInitialField; // Рассматриваемая расстановка является начальной
+	bool isInitialField; //!< Рассматриваемая расстановка является начальной
 
-	int count; // Счетчик
+	int count; //!< Счетчик
 	
-	Size fieldSize; // Размеры поля
+	Size fieldSize; //!< Размеры поля
 
 	/*!
 	* \brief Конструктор с аргументами

@@ -11,9 +11,9 @@
 
 using std::vector;
 
-using Field = vector<vector<char>>; // Псевдоним для игрового поля
+using Field = vector<vector<char>>; //!< Псевдоним для игрового поля
 
-const Field DEFAULT_FIELD = { {'#'} }; // Поле по умолчанию
+const Field DEFAULT_FIELD = { {'#'} }; //!< Поле по умолчанию
 
 /*!
  * \brief Игровое поле с дополнительными данными
@@ -22,11 +22,11 @@ class GameFieldData
 {
     friend vector<GameFieldData> solveJammed(const GameFieldData& startField, const GameFieldData& goalField);
 
-    Field field; // Игровое поле
+    Field field; //!< Игровое поле
 
-    int numberOfMoves; // Количество сделанных ходов
+    int numberOfMoves; //!< Количество сделанных ходов
 
-    int manhattanDistance; // Манхэттенское расстояние
+    int manhattanDistance; //!< Манхэттенское расстояние
 
 public:
 
@@ -71,7 +71,7 @@ public:
     void setNumberOfMoves(const int& value);
 
     /*!
-    * \brief Сеттер для количества сделанных ходов
+    * \brief Сеттер для поля manhattanDistance
     */
     void setManhattanDistance(const int& value);
 

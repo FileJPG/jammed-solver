@@ -1,6 +1,6 @@
 /*!
 * \file
-* \brief Данный файл является заголовочным файлом для класса PriorityQueue
+* \brief Данный файл содержит в себе реализацию функций класса PriorityQueue
 */
 
 #pragma once
@@ -15,9 +15,9 @@ using std::vector;
  */
 template<class T> class PriorityQueue
 {
-    vector<T*> items; // Элементы очереди
+    vector<T*> items; //!< Элементы очереди
 
-    vector<int> priorities; // Приоритеты элементов очереди
+    vector<int> priorities; //!< Приоритеты элементов очереди
 
 public:
 
