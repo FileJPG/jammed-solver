@@ -36,7 +36,7 @@ string Error::convert() const
 		errorString = "Ошибка во входных данных. Обнаружены недопустимые символы в " + string(isInitialField ? "начальной" : "целевой") + " расстановке: " + str;
 		break;
 	case incorrectFieldSize:
-		errorString = "Ошибка во входных данных. Размер поля " + string(isInitialField ? "начальной" : "целевой") + " расстановки " + std::to_string(fieldSize.height) + "x" + std::to_string(fieldSize.length) + " не является размером 2x4";
+		errorString = "Ошибка во входных данных. Размер поля " + string(isInitialField ? "начальной" : "целевой") + " расстановки " + std::to_string(fieldSize.length) + "x" + std::to_string(fieldSize.height) + " не является размером 2x4";
 		break;
 	case differentSymbolsSets:
 		errorString = "Ошибка во входных данных. Разный набор значений фишек в начальной и целевой расстановках.";

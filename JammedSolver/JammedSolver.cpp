@@ -1,6 +1,6 @@
 ﻿/*!
 * \file
-* \brief Данный файл содержит в себе реализацию глобальных функций
+* \brief Данный файл содержит в себе реализацию функций, которые используются в ходе работы программы
 */
 
 #include <fstream>
@@ -123,7 +123,7 @@ vector<GameFieldData> solveJammed(const GameFieldData& startField, const GameFie
 			Node<GameFieldData>* newNode = new Node<GameFieldData>(currentNewField, currentNode);
 
 			// Поместить новый узел в список открытых узлов
-			openNodes.enqueue(newNode, newNode->getData().manhattanDistance);
+			openNodes.enqueue(newNode, newNode->getData().manhattanDistance + newNode->getData().numberOfMoves);
 
 			// Проверить, не является ли текущая расстановка целевой
 			if (GameFieldData::compareFields(currentNewField, goalField))

@@ -1,6 +1,6 @@
 /*!
 * \file
-* \brief Данный файл содержит главную функцию программы JammedSolver.
+* \brief Данный файл содержит в себе главную функцию программы JammedSolver
 *
 * \mainpage Документация для программы "JammedSolver"
 Программа предназначена для осуществления решения игры "Пятнашки".
@@ -38,7 +38,7 @@
  */
 int main(int argc, char* argv[])
 {
-    // Включить поддержку русского языка в консоли
+	// Включить поддержку русского языка в консоли
 	setlocale(LC_ALL, "Russian");
 
 	// Анализ переданных в программу аргументов
@@ -77,8 +77,10 @@ int main(int argc, char* argv[])
 			// Добавить ошибку текущей расстановки, если #она не валидная#
 			vector<Error> fieldErrors = GameFieldData::validate(fields[i]);
 
-			for (auto& fieldError : fieldErrors)
+			for (auto& fieldError : fieldErrors) {
 				fieldError.isInitialField = i == 0 ? true : false;
+				errors.push_back(fieldError);
+			}
 
 			// Добавить ошибку текущей расстановки, если она имеет неправильный размер
 			if (fields[i].size() != FIELD_HEIGHT || fields[i][0].size() != FIELD_LENGTH)
@@ -101,9 +103,12 @@ int main(int argc, char* argv[])
 	// Выполнить программу и записать данные в выходной файл...
 	
 	// ...Создать выходной файл и добавить ошибку, если файл не создается
-	std::ofstream outputFile(argv[2]);
-	if (!outputFile)
-		errors.push_back(Error(cantCreateFile, argv[2]));
+	std::ofstream outputFile;
+	if (errors.empty()) {
+		outputFile.open(argv[2]);
+		if (!outputFile.is_open())
+			errors.push_back(Error(cantCreateFile, argv[2]));
+	}
 
 	if (errors.empty()) // Если не произошло ошибок при чтении расстановок и создании выходного файла
 	{
@@ -137,6 +142,10 @@ int main(int argc, char* argv[])
 				outputFile << std::endl;
 			}
 		}
+
+		// Закрыть выходной файл
+		if (outputFile)
+			outputFile.close();
 	}
 
 	// Вывести все возникшие ошибки в консоль...
@@ -147,12 +156,5 @@ int main(int argc, char* argv[])
 
 		// Вывести текущую ошибку в консоль
 		std::cout << convertedError << std::endl << std::endl;
-
-		if (outputFile)
-			outputFile << convertedError << std::endl << std::endl;
 	}
-
-	// Закрыть выходной файл
-	if (outputFile)
-		outputFile.close();
 }
